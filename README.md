@@ -12,7 +12,9 @@
 ### <i>Timofey Fedorchuk</i>
   Contacts:
   * ##### Telegram [@tim_fedor](https://t.me/tim_fedor)
+  * ##### LinkedIn [Click on this link](https://www.linkedin.com/in/%D1%82%D0%B8%D0%BC%D0%BE%D1%84%D0%B5%D0%B9-%D1%84%D0%B5%D0%B4%D0%BE%D1%80%D1%87%D1%83%D0%BA-251872150/)
   
 ### <i>Alexey Horbunov</i>
   Contacts:
   * ##### Telegram [@Alexey_Horbunov](https://t.me/Alexey_Horbunov)
+  * ##### LinkedIn [Click on this link](https://www.linkedin.com/in/alexey-horbunov211/)

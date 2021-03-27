@@ -1,16 +1,18 @@
-const { ChainId, Token, WETH, Fetcher, Trade, Route, TokenAmount, TradeType } = require('@uniswap/sdk')
-const dai = new Token(ChainId.MAINNET, '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9', 18)
-const tether = new Token(ChainId.MAINNET, '0xdAC17F958D2ee523a2206206994597C13D831ec7', 6)
-
+const { ChainId, Token, WETH, Fetcher, Route } = require('@uniswap/sdk')
+var a = '0xec67005c4E498Ec7f55E092bd1d35cbC47C91892';
 
 const init = async() => {
   //console.log('before start'); //test
+  
+  const USDT = await Fetcher.fetchTokenData(ChainId.MAINNET, '0xdAC17F958D2ee523a2206206994597C13D831ec7');
+  const Coin = await Fetcher.fetchTokenData(ChainId.MAINNET, a);
+	
+  const USDTWETHPair = await Fetcher.fetchPairData(WETH[USDT.chainId], USDT)
+  const CoinWETHPair = await Fetcher.fetchPairData(Coin, WETH[Coin.chainId])
 
-  const pair = await Fetcher.fetchPairData(dai, tether);
-  const route = new Route([pair], tether);
-  const trade = new Trade(route, new TokenAmount(tether, '1000000'), TradeType.EXACT_INPUT);
-  console.log(trade.executionPrice.invert().toSignificant(6))
-  console.log(trade.nextMidPrice.invert().toSignificant(6))
+  const route = new Route([USDTWETHPair, CoinWETHPair], USDT)
+
+  console.log(route.midPrice.invert().toSignificant(6))   
   
   //console.log('after start'); //test
 };

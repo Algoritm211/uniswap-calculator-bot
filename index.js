@@ -1,6 +1,8 @@
 const {Telegraf} = require('telegraf')
 require('dotenv').config()
 const phrases = require('./phrases.json')
+const getCoinAddress = require('./helpers/address-getter')
+const getTokenPrice = require('./helpers/price-getter')
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
@@ -21,18 +23,37 @@ bot.help((ctx) => {
 
 //Reaction on text
 bot.on('text', async (ctx) => {
+  if (ctx.message.text.split(' ').length > 2 || ctx.message.text.split(' ').length < 2) {
+    ctx.reply(phrases.errorFormat)
+    return
+  }
   const {message_id: waitingMessageId} = await ctx.telegram.sendMessage(ctx.message.chat.id, phrases.loading, {parse_mode: 'HTML'})
-  await sleep(3000)
-  const mockText = '1 BTC = $60 000'
+  const [firstCoin, secondCoin] = ctx.message.text.toLowerCase().split(' ')
+
+  const firstCoinAddress = await getCoinAddress(firstCoin)
+  const secondCoinAddress = await getCoinAddress(secondCoin)
+  console.log()
+
+  if (!firstCoinAddress || !secondCoinAddress) {
+    await ctx.telegram.deleteMessage(ctx.message.chat.id, waitingMessageId)
+    ctx.reply(phrases.errorTickers)
+    return
+  }
+
+  const price = await getTokenPrice([firstCoinAddress, secondCoinAddress])
+
   await ctx.telegram.editMessageText(
     ctx.message.chat.id,
     waitingMessageId,
     null,
-    mockText
+    `<b>The last price was loaded!📋</b>\n\n<code>1 ${firstCoin.toUpperCase()} = ${price} ${secondCoin.toUpperCase()}</code>\n\n<i>*You can easy copy price</i>`,
+    {parse_mode: 'HTML'}
   )
 })
 
 bot.launch().then(() => console.log('Bot was started'))
 
+
+// Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))

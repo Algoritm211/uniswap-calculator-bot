@@ -18,6 +18,7 @@
     "@ethersproject/solidity": "^5.0.10",
     "@uniswap/sdk": "^3.0.3",
     "axios": "^0.21.1",
+    "mongoose": "^5.12.2",
     "telegraf": "^4.3.0"
   },
   "devDependencies": {

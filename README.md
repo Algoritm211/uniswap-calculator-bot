@@ -2,7 +2,7 @@
 
 1. Clone app to your computer (`git clone https://github.com/Algoritm211/uniswap-calculator-bot.git`)
 2. Run `npm install` to install all libraries (dependencies) of project
-3. Create file `.env`, where write your bot token to a variable. Example: `BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11` (Not a real token, don't even try😉)
+3. Create file `.env`, where write your bot token and MongoDB Atlas URL to a variables. Example: `BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11` (Not a real token, don't even try😉) and `dbURL=mongodb+srv://<username>:<password>@cluster0.sfcrg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
 **[Here](https://core.telegram.org/bots/api#authorizing-your-bot)** you can get information about where you can get the token
 
